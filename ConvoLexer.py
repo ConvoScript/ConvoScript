@@ -6,6 +6,7 @@ tokens = [
     'RPAR',
     'NUMBER',
     'STRING',
+    'EQUALS',
 ]
 reserved = {
      'Open': 'OPEN',
@@ -13,11 +14,23 @@ reserved = {
      'Send': 'SEND',
      'Receive': 'RECEIVE',
      'Ping': 'PING',
-
 }
 
-t_LPAREN  = r'\('
-t_RPAREN  = r'\)'
-t_STRING  = r'[a-zA-Z_][a-zA-Z0-9_]*'
-t_COMMA = r','
+# Regular expression rules for simple tokens
+t_COMMA = r'\,'
+t_LPAR  = r'\('
+t_RPAR  = r'\)'
+t_EQUALS  = r'\='
+def t_NUMBER(t):
+    r'(\d+)'
+    return t
+
+def t_STRING(t):
+    r'\"[a-zA-Z0-9_?!@#$%&*-+().~, \t\n]*\"'
+    return t
+
+#Build Lexer
+lexer = lex.lex()
+
+
 

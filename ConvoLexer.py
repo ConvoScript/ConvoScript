@@ -29,6 +29,10 @@ def t_STRING(t):
     r'\"[a-zA-Z0-9_?!@#$%&*-+().~, \t\n]*\"'
     return t
 
+def t_newline(self,t):
+         r'\n+'
+         t.lexer.lineno += len(t.value)
+
 #Build Lexer
 lexer = lex.lex()
 

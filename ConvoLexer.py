@@ -8,9 +8,8 @@ keywords = (
 
 tokens = keywords + (
     'EQUALS', 'LPAREN', 'RPAREN', 'COMMA', 
-    'SEMI', 'INTEGER', 'FLOAT', 'STRING',
-    'WORD', 'NEWLINE', 
-    # 'IP',
+    'SEMI', 'IP', 'INTEGER', 'STRING',
+    'WORD', 'NEWLINE',
 )
 
 t_ignore = ' \t'
@@ -33,8 +32,7 @@ t_RPAREN = r'\)'
 t_COMMA = r'\,'
 t_SEMI = r';'
 t_INTEGER = r'\d+'
-# t_IP = r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$'
-t_FLOAT = r'((\d*\.\d+)(E[\+-]?\d+)?|([1-9]\d*E[\+-]?\d+))'
+t_IP = r'\d+\.\d+\.\d+\.\d+'
 t_STRING = r'\".*?\"'
 
 
@@ -55,7 +53,7 @@ lexer = lex.lex()
 
 # Test it out
 data = '''
-OPEN(127.22.107.88);
+OPEN(197.22.108.88);
 SEND("flow");
 '''
 

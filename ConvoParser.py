@@ -8,7 +8,7 @@ def p_function_open(p):
     '''
     function : OPEN LPAREN IP RPAREN
     '''
-    ConvoIntermediate.printer()
+    ConvoIntermediate.printer(p[3])
     print(p[3])
 
 def p_function_close(p):

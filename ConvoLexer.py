@@ -1,40 +1,70 @@
+# An implementation of Dartmouth BASIC (1964)
+
 import ply.lex as lex
-import sys
-tokens = [
-    'COMMA',
-    'LPAR',
-    'RPAR',
-    'NUMBER',
-    'STRING',
-    'EQUALS',
-]
-reserved = {
-     'Open': 'OPEN',
-     'Close':'CLOSE',
-     'Send': 'SEND',
-     'Receive': 'RECEIVE',
-     'Ping': 'PING',
-}
 
-# Regular expression rules for simple tokens
+keywords = (
+    'OPEN', 'CLOSE', 'PING', 'SEND', 'RECEIVE',
+)
+
+tokens = keywords + (
+    'EQUALS', 'LPAREN', 'RPAREN', 'COMMA', 
+    'SEMI', 'INTEGER', 'FLOAT', 'STRING',
+    'WORD', 'NEWLINE', 
+    # 'IP',
+)
+
+t_ignore = ' \t'
+
+
+def t_REM(t):
+    r'REM .*'
+    return t
+
+
+def t_WORD(t):
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    if t.value in keywords:
+        t.type = t.value
+    return t
+
+t_EQUALS = r'='
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
 t_COMMA = r'\,'
-t_LPAR  = r'\('
-t_RPAR  = r'\)'
-t_EQUALS  = r'\='
-def t_NUMBER(t):
-    r'(\d+)'
+t_SEMI = r';'
+t_INTEGER = r'\d+'
+# t_IP = r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$'
+t_FLOAT = r'((\d*\.\d+)(E[\+-]?\d+)?|([1-9]\d*E[\+-]?\d+))'
+t_STRING = r'\".*?\"'
+
+
+def t_NEWLINE(t):
+    r'\n'
+    t.lexer.lineno += 1
     return t
 
-def t_STRING(t):
-    r'\"[a-zA-Z0-9_?!@#$%&*-+().~, \t\n]*\"'
-    return t
 
-def t_newline(self,t):
-         r'\n+'
-         t.lexer.lineno += len(t.value)
+def t_error(t):
+    print("Illegal character %s" % t.value[0])
+    t.lexer.skip(1)
 
-#Build Lexer
+lex.lex(debug=0)
+
+# Build the lexer
 lexer = lex.lex()
 
+# Test it out
+data = '''
+OPEN(127.22.107.88);
+SEND("flow");
+'''
 
+# Give the lexer some input
+lexer.input(data)
 
+# Tokenize
+while True:
+    tok = lexer.token()
+    if not tok: 
+        break      # No more input
+    print(tok)

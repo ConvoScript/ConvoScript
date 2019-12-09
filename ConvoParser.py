@@ -47,7 +47,8 @@ parser = yacc.yacc()
 
 while True:
     try:
-        s = raw_input('ConvoScript > ')
+        #s = raw_input('ConvoScript > ')
+        s = input('ConvoScript > ')
     except EOFError:
         break
     if not s: continue

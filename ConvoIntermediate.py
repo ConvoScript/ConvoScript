@@ -36,6 +36,7 @@ def openComm(p):
 
 def closeComm():
     print("Closing Communication with: ")
+    s.close()
 
 def sendData():
     while True:
@@ -46,6 +47,7 @@ def sendData():
         while True:
             tosend = input()
             c.send(tosend.encode())
+
 
 
 def ping():

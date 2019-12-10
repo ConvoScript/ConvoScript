@@ -30,8 +30,8 @@ _lr_productions = [
   ('function -> OPEN LPAREN RPAREN','function',3,'p_function_open','ConvoParser.py',9),
   ('function -> CLOSE LPAREN RPAREN','function',3,'p_function_close','ConvoParser.py',16),
   ('function -> JOIN LPAREN IP RPAREN','function',4,'p_function_join','ConvoParser.py',22),
-  ('function -> SEND LPAREN data RPAREN','function',4,'p_function_send','ConvoParser.py',29),
-  ('data -> STRING','data',1,'p_data','ConvoParser.py',37),
-  ('data -> WORD','data',1,'p_data','ConvoParser.py',38),
-  ('data -> INTEGER','data',1,'p_data','ConvoParser.py',39),
+  ('function -> SEND LPAREN data RPAREN','function',4,'p_function_send','ConvoParser.py',30),
+  ('data -> STRING','data',1,'p_data','ConvoParser.py',38),
+  ('data -> WORD','data',1,'p_data','ConvoParser.py',39),
+  ('data -> INTEGER','data',1,'p_data','ConvoParser.py',40),
 ]

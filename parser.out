@@ -14,7 +14,7 @@ Rule 0     S' -> function
 Rule 1     function -> OPEN LPAREN RPAREN
 Rule 2     function -> CLOSE LPAREN RPAREN
 Rule 3     function -> JOIN LPAREN IP RPAREN
-Rule 4     function -> SEND LPAREN data RPAREN
+Rule 4     function -> SEND LPAREN RPAREN
 Rule 5     data -> STRING
 Rule 6     data -> WORD
 Rule 7     data -> INTEGER
@@ -40,7 +40,7 @@ error                :
 
 Nonterminals, with rules where they appear
 
-data                 : 4
+data                 : 
 function             : 0
 
 Parsing method: LALR
@@ -51,7 +51,7 @@ state 0
     (1) function -> . OPEN LPAREN RPAREN
     (2) function -> . CLOSE LPAREN RPAREN
     (3) function -> . JOIN LPAREN IP RPAREN
-    (4) function -> . SEND LPAREN data RPAREN
+    (4) function -> . SEND LPAREN RPAREN
 
     OPEN            shift and go to state 2
     CLOSE           shift and go to state 3
@@ -89,7 +89,7 @@ state 4
 
 state 5
 
-    (4) function -> SEND . LPAREN data RPAREN
+    (4) function -> SEND . LPAREN RPAREN
 
     LPAREN          shift and go to state 9
 
@@ -117,16 +117,10 @@ state 8
 
 state 9
 
-    (4) function -> SEND LPAREN . data RPAREN
-    (5) data -> . STRING
-    (6) data -> . WORD
-    (7) data -> . INTEGER
+    (4) function -> SEND LPAREN . RPAREN
 
-    STRING          shift and go to state 14
-    WORD            shift and go to state 15
-    INTEGER         shift and go to state 16
+    RPAREN          shift and go to state 13
 
-    data                           shift and go to state 13
 
 state 10
 
@@ -146,47 +140,19 @@ state 12
 
     (3) function -> JOIN LPAREN IP . RPAREN
 
-    RPAREN          shift and go to state 17
+    RPAREN          shift and go to state 14
 
 
 state 13
 
-    (4) function -> SEND LPAREN data . RPAREN
+    (4) function -> SEND LPAREN RPAREN .
 
-    RPAREN          shift and go to state 18
+    $end            reduce using rule 4 (function -> SEND LPAREN RPAREN .)
 
 
 state 14
 
-    (5) data -> STRING .
-
-    RPAREN          reduce using rule 5 (data -> STRING .)
-
-
-state 15
-
-    (6) data -> WORD .
-
-    RPAREN          reduce using rule 6 (data -> WORD .)
-
-
-state 16
-
-    (7) data -> INTEGER .
-
-    RPAREN          reduce using rule 7 (data -> INTEGER .)
-
-
-state 17
-
     (3) function -> JOIN LPAREN IP RPAREN .
 
     $end            reduce using rule 3 (function -> JOIN LPAREN IP RPAREN .)
-
-
-state 18
-
-    (4) function -> SEND LPAREN data RPAREN .
-
-    $end            reduce using rule 4 (function -> SEND LPAREN data RPAREN .)
 

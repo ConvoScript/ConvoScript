@@ -6,9 +6,9 @@ from ConvoLexer import tokens
 
 def p_function_open(p):
     '''
-    function : OPEN LPAREN IP RPAREN
+    function : OPEN LPAREN RPAREN
     '''
-    ConvoIntermediate.printer(p[3])
+    ConvoIntermediate.openComm(p[3])
     print(p[3])
 
 def p_function_close(p):
@@ -17,18 +17,20 @@ def p_function_close(p):
     '''
     print(p[1])
 
-def p_function_ping(p):
+def p_function_join(p):
     '''
-    function : PING LPAREN RPAREN
-             | PING LPAREN IP RPAREN
+    function : JOIN LPAREN IP RPAREN
     '''
     print(p[1])
+    ConvoIntermediate.joinComm(p,'127.0.0.1')
 
 def p_function_send(p):
     '''
     function : SEND LPAREN data RPAREN
     '''
     print(p[1])
+    ConvoIntermediate.sendData(p_data())
+
 
 def p_data(p):
     '''

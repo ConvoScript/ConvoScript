@@ -14,9 +14,10 @@ def printer(p):
     print("Welcome to the intermediate code!")
     print("You sent: ", p)
 
-def joinComm(p):
+def joinComm(p,host):
     #s.connect(('hostname', port))
-    s.connect(('127.0.0.1', port))
+    #s.connect(('127.0.0.1', port))
+    s.connect((host, port))
 
     # receive data from the server
     while True:
@@ -33,12 +34,6 @@ def openComm(p):
     s.listen(5)
     print("socket is listening")
     print("Opening Communication with: ")
-
-def closeComm():
-    print("Closing Communication with: ")
-    s.close()
-
-def sendData():
     while True:
         # Establish connection with client.
         c, addr = s.accept()
@@ -48,7 +43,12 @@ def sendData():
             tosend = input()
             c.send(tosend.encode())
 
+def closeComm():
+    print("Closing Communication with: ")
+    s.close()
 
-
-def ping():
-    print("Ping to: ")
+def sendData(p,msg):
+    s.send(msg.encode())
+        #while True:
+         #   tosend = input()
+        #    c.send(tosend.encode())

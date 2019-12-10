@@ -2,46 +2,45 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    SEMI
-    RECEIVE
-    NEWLINE
-    EQUALS
     COMMA
+    EQUALS
+    NEWLINE
+    RECEIVE
+    SEMI
 
 Grammar
 
 Rule 0     S' -> function
-Rule 1     function -> OPEN LPAREN IP RPAREN
+Rule 1     function -> OPEN LPAREN RPAREN
 Rule 2     function -> CLOSE LPAREN RPAREN
-Rule 3     function -> PING LPAREN RPAREN
-Rule 4     function -> PING LPAREN IP RPAREN
-Rule 5     function -> SEND LPAREN data RPAREN
-Rule 6     data -> STRING
-Rule 7     data -> WORD
-Rule 8     data -> INTEGER
+Rule 3     function -> JOIN LPAREN IP RPAREN
+Rule 4     function -> SEND LPAREN data RPAREN
+Rule 5     data -> STRING
+Rule 6     data -> WORD
+Rule 7     data -> INTEGER
 
 Terminals, with rules where they appear
 
 CLOSE                : 2
 COMMA                : 
 EQUALS               : 
-INTEGER              : 8
-IP                   : 1 4
-LPAREN               : 1 2 3 4 5
+INTEGER              : 7
+IP                   : 3
+JOIN                 : 3
+LPAREN               : 1 2 3 4
 NEWLINE              : 
 OPEN                 : 1
-PING                 : 3 4
 RECEIVE              : 
-RPAREN               : 1 2 3 4 5
+RPAREN               : 1 2 3 4
 SEMI                 : 
-SEND                 : 5
-STRING               : 6
-WORD                 : 7
+SEND                 : 4
+STRING               : 5
+WORD                 : 6
 error                : 
 
 Nonterminals, with rules where they appear
 
-data                 : 5
+data                 : 4
 function             : 0
 
 Parsing method: LALR
@@ -49,16 +48,15 @@ Parsing method: LALR
 state 0
 
     (0) S' -> . function
-    (1) function -> . OPEN LPAREN IP RPAREN
+    (1) function -> . OPEN LPAREN RPAREN
     (2) function -> . CLOSE LPAREN RPAREN
-    (3) function -> . PING LPAREN RPAREN
-    (4) function -> . PING LPAREN IP RPAREN
-    (5) function -> . SEND LPAREN data RPAREN
+    (3) function -> . JOIN LPAREN IP RPAREN
+    (4) function -> . SEND LPAREN data RPAREN
 
-    OPEN            shift and go to state 5
-    CLOSE           shift and go to state 4
-    PING            shift and go to state 2
-    SEND            shift and go to state 3
+    OPEN            shift and go to state 2
+    CLOSE           shift and go to state 3
+    JOIN            shift and go to state 4
+    SEND            shift and go to state 5
 
     function                       shift and go to state 1
 
@@ -70,142 +68,125 @@ state 1
 
 state 2
 
-    (3) function -> PING . LPAREN RPAREN
-    (4) function -> PING . LPAREN IP RPAREN
+    (1) function -> OPEN . LPAREN RPAREN
 
     LPAREN          shift and go to state 6
 
 
 state 3
 
-    (5) function -> SEND . LPAREN data RPAREN
+    (2) function -> CLOSE . LPAREN RPAREN
 
     LPAREN          shift and go to state 7
 
 
 state 4
 
-    (2) function -> CLOSE . LPAREN RPAREN
+    (3) function -> JOIN . LPAREN IP RPAREN
 
     LPAREN          shift and go to state 8
 
 
 state 5
 
-    (1) function -> OPEN . LPAREN IP RPAREN
+    (4) function -> SEND . LPAREN data RPAREN
 
     LPAREN          shift and go to state 9
 
 
 state 6
 
-    (3) function -> PING LPAREN . RPAREN
-    (4) function -> PING LPAREN . IP RPAREN
+    (1) function -> OPEN LPAREN . RPAREN
 
     RPAREN          shift and go to state 10
-    IP              shift and go to state 11
 
 
 state 7
 
-    (5) function -> SEND LPAREN . data RPAREN
-    (6) data -> . STRING
-    (7) data -> . WORD
-    (8) data -> . INTEGER
+    (2) function -> CLOSE LPAREN . RPAREN
 
-    STRING          shift and go to state 12
-    WORD            shift and go to state 14
-    INTEGER         shift and go to state 13
+    RPAREN          shift and go to state 11
 
-    data                           shift and go to state 15
 
 state 8
 
-    (2) function -> CLOSE LPAREN . RPAREN
+    (3) function -> JOIN LPAREN . IP RPAREN
 
-    RPAREN          shift and go to state 16
+    IP              shift and go to state 12
 
 
 state 9
 
-    (1) function -> OPEN LPAREN . IP RPAREN
+    (4) function -> SEND LPAREN . data RPAREN
+    (5) data -> . STRING
+    (6) data -> . WORD
+    (7) data -> . INTEGER
 
-    IP              shift and go to state 17
+    STRING          shift and go to state 14
+    WORD            shift and go to state 15
+    INTEGER         shift and go to state 16
 
+    data                           shift and go to state 13
 
 state 10
 
-    (3) function -> PING LPAREN RPAREN .
+    (1) function -> OPEN LPAREN RPAREN .
 
-    $end            reduce using rule 3 (function -> PING LPAREN RPAREN .)
+    $end            reduce using rule 1 (function -> OPEN LPAREN RPAREN .)
 
 
 state 11
-
-    (4) function -> PING LPAREN IP . RPAREN
-
-    RPAREN          shift and go to state 18
-
-
-state 12
-
-    (6) data -> STRING .
-
-    RPAREN          reduce using rule 6 (data -> STRING .)
-
-
-state 13
-
-    (8) data -> INTEGER .
-
-    RPAREN          reduce using rule 8 (data -> INTEGER .)
-
-
-state 14
-
-    (7) data -> WORD .
-
-    RPAREN          reduce using rule 7 (data -> WORD .)
-
-
-state 15
-
-    (5) function -> SEND LPAREN data . RPAREN
-
-    RPAREN          shift and go to state 19
-
-
-state 16
 
     (2) function -> CLOSE LPAREN RPAREN .
 
     $end            reduce using rule 2 (function -> CLOSE LPAREN RPAREN .)
 
 
+state 12
+
+    (3) function -> JOIN LPAREN IP . RPAREN
+
+    RPAREN          shift and go to state 17
+
+
+state 13
+
+    (4) function -> SEND LPAREN data . RPAREN
+
+    RPAREN          shift and go to state 18
+
+
+state 14
+
+    (5) data -> STRING .
+
+    RPAREN          reduce using rule 5 (data -> STRING .)
+
+
+state 15
+
+    (6) data -> WORD .
+
+    RPAREN          reduce using rule 6 (data -> WORD .)
+
+
+state 16
+
+    (7) data -> INTEGER .
+
+    RPAREN          reduce using rule 7 (data -> INTEGER .)
+
+
 state 17
 
-    (1) function -> OPEN LPAREN IP . RPAREN
+    (3) function -> JOIN LPAREN IP RPAREN .
 
-    RPAREN          shift and go to state 20
+    $end            reduce using rule 3 (function -> JOIN LPAREN IP RPAREN .)
 
 
 state 18
 
-    (4) function -> PING LPAREN IP RPAREN .
+    (4) function -> SEND LPAREN data RPAREN .
 
-    $end            reduce using rule 4 (function -> PING LPAREN IP RPAREN .)
-
-
-state 19
-
-    (5) function -> SEND LPAREN data RPAREN .
-
-    $end            reduce using rule 5 (function -> SEND LPAREN data RPAREN .)
-
-
-state 20
-
-    (1) function -> OPEN LPAREN IP RPAREN .
-
-    $end            reduce using rule 1 (function -> OPEN LPAREN IP RPAREN .)
+    $end            reduce using rule 4 (function -> SEND LPAREN data RPAREN .)
 

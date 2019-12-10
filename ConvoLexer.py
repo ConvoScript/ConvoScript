@@ -3,7 +3,7 @@
 import ply.lex as lex
 
 keywords = (
-    'OPEN', 'CLOSE', 'PING', 'SEND', 'RECEIVE',
+    'OPEN', 'CLOSE', 'JOIN', 'SEND', 'RECEIVE',
 )
 
 tokens = keywords + (

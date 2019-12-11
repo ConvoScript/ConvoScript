@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'CLOSE COMMA EQUALS INTEGER IP JOIN LPAREN NEWLINE OPEN RECEIVE RPAREN SEMI SEND STRING WORD\n    function : OPEN LPAREN RPAREN\n    \n    function : CLOSE LPAREN RPAREN\n    \n    function : JOIN LPAREN IP RPAREN\n    \n    function : SEND LPAREN data RPAREN\n    \n    data : STRING\n         | WORD\n         | INTEGER\n    '
+_lr_signature = 'CLOSE COMMA EQUALS INTEGER IP JOIN LPAREN NEWLINE OPEN RECEIVE RPAREN SEMI SEND STRING WORD\n    function : OPEN LPAREN RPAREN\n    \n    function : CLOSE LPAREN RPAREN\n    \n    function : JOIN LPAREN IP RPAREN\n    \n    data : STRING\n         | WORD\n         | INTEGER\n    '
     
-_lr_action_items = {'OPEN':([0,],[2,]),'CLOSE':([0,],[3,]),'JOIN':([0,],[4,]),'SEND':([0,],[5,]),'$end':([1,10,11,17,18,],[0,-1,-2,-3,-4,]),'LPAREN':([2,3,4,5,],[6,7,8,9,]),'RPAREN':([6,7,12,13,14,15,16,],[10,11,17,18,-5,-6,-7,]),'IP':([8,],[12,]),'STRING':([9,],[14,]),'WORD':([9,],[15,]),'INTEGER':([9,],[16,]),}
+_lr_action_items = {'OPEN':([0,],[2,]),'CLOSE':([0,],[3,]),'JOIN':([0,],[4,]),'$end':([1,8,9,11,],[0,-1,-2,-3,]),'LPAREN':([2,3,4,],[5,6,7,]),'RPAREN':([5,6,10,],[8,9,11,]),'IP':([7,],[10,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'function':([0,],[1,]),'data':([9,],[13,]),}
+_lr_goto_items = {'function':([0,],[1,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -30,8 +30,7 @@ _lr_productions = [
   ('function -> OPEN LPAREN RPAREN','function',3,'p_function_open','ConvoParser.py',9),
   ('function -> CLOSE LPAREN RPAREN','function',3,'p_function_close','ConvoParser.py',16),
   ('function -> JOIN LPAREN IP RPAREN','function',4,'p_function_join','ConvoParser.py',22),
-  ('function -> SEND LPAREN data RPAREN','function',4,'p_function_send','ConvoParser.py',30),
-  ('data -> STRING','data',1,'p_data','ConvoParser.py',38),
-  ('data -> WORD','data',1,'p_data','ConvoParser.py',39),
-  ('data -> INTEGER','data',1,'p_data','ConvoParser.py',40),
+  ('data -> STRING','data',1,'p_data','ConvoParser.py',28),
+  ('data -> WORD','data',1,'p_data','ConvoParser.py',29),
+  ('data -> INTEGER','data',1,'p_data','ConvoParser.py',30),
 ]

@@ -7,6 +7,7 @@ Unused terminals:
     NEWLINE
     RECEIVE
     SEMI
+    SEND
 
 Grammar
 
@@ -14,28 +15,27 @@ Rule 0     S' -> function
 Rule 1     function -> OPEN LPAREN RPAREN
 Rule 2     function -> CLOSE LPAREN RPAREN
 Rule 3     function -> JOIN LPAREN IP RPAREN
-Rule 4     function -> SEND LPAREN RPAREN
-Rule 5     data -> STRING
-Rule 6     data -> WORD
-Rule 7     data -> INTEGER
+Rule 4     data -> STRING
+Rule 5     data -> WORD
+Rule 6     data -> INTEGER
 
 Terminals, with rules where they appear
 
 CLOSE                : 2
 COMMA                : 
 EQUALS               : 
-INTEGER              : 7
+INTEGER              : 6
 IP                   : 3
 JOIN                 : 3
-LPAREN               : 1 2 3 4
+LPAREN               : 1 2 3
 NEWLINE              : 
 OPEN                 : 1
 RECEIVE              : 
-RPAREN               : 1 2 3 4
+RPAREN               : 1 2 3
 SEMI                 : 
-SEND                 : 4
-STRING               : 5
-WORD                 : 6
+SEND                 : 
+STRING               : 4
+WORD                 : 5
 error                : 
 
 Nonterminals, with rules where they appear
@@ -51,12 +51,10 @@ state 0
     (1) function -> . OPEN LPAREN RPAREN
     (2) function -> . CLOSE LPAREN RPAREN
     (3) function -> . JOIN LPAREN IP RPAREN
-    (4) function -> . SEND LPAREN RPAREN
 
     OPEN            shift and go to state 2
     CLOSE           shift and go to state 3
     JOIN            shift and go to state 4
-    SEND            shift and go to state 5
 
     function                       shift and go to state 1
 
@@ -70,87 +68,66 @@ state 2
 
     (1) function -> OPEN . LPAREN RPAREN
 
-    LPAREN          shift and go to state 6
+    LPAREN          shift and go to state 5
 
 
 state 3
 
     (2) function -> CLOSE . LPAREN RPAREN
 
-    LPAREN          shift and go to state 7
+    LPAREN          shift and go to state 6
 
 
 state 4
 
     (3) function -> JOIN . LPAREN IP RPAREN
 
-    LPAREN          shift and go to state 8
+    LPAREN          shift and go to state 7
 
 
 state 5
 
-    (4) function -> SEND . LPAREN RPAREN
+    (1) function -> OPEN LPAREN . RPAREN
 
-    LPAREN          shift and go to state 9
+    RPAREN          shift and go to state 8
 
 
 state 6
 
-    (1) function -> OPEN LPAREN . RPAREN
+    (2) function -> CLOSE LPAREN . RPAREN
 
-    RPAREN          shift and go to state 10
+    RPAREN          shift and go to state 9
 
 
 state 7
 
-    (2) function -> CLOSE LPAREN . RPAREN
+    (3) function -> JOIN LPAREN . IP RPAREN
 
-    RPAREN          shift and go to state 11
+    IP              shift and go to state 10
 
 
 state 8
-
-    (3) function -> JOIN LPAREN . IP RPAREN
-
-    IP              shift and go to state 12
-
-
-state 9
-
-    (4) function -> SEND LPAREN . RPAREN
-
-    RPAREN          shift and go to state 13
-
-
-state 10
 
     (1) function -> OPEN LPAREN RPAREN .
 
     $end            reduce using rule 1 (function -> OPEN LPAREN RPAREN .)
 
 
-state 11
+state 9
 
     (2) function -> CLOSE LPAREN RPAREN .
 
     $end            reduce using rule 2 (function -> CLOSE LPAREN RPAREN .)
 
 
-state 12
+state 10
 
     (3) function -> JOIN LPAREN IP . RPAREN
 
-    RPAREN          shift and go to state 14
+    RPAREN          shift and go to state 11
 
 
-state 13
-
-    (4) function -> SEND LPAREN RPAREN .
-
-    $end            reduce using rule 4 (function -> SEND LPAREN RPAREN .)
-
-
-state 14
+state 11
 
     (3) function -> JOIN LPAREN IP RPAREN .
 
